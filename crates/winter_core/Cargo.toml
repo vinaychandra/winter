@@ -1,0 +1,14 @@
+[package]
+edition = "2021"
+name = "winter_core"
+version = "0.1.0"
+
+[dependencies]
+no-std-compat = {version = "0.4.1", features = ["alloc"]}
+nom = {version = "7.0", default-features = false, features = ["alloc"]}
+num-traits = {version = "0.2", default-features = false}
+
+[dev-dependencies.cargo-husky]
+default-features = false # Disable features which are enabled by default
+features = ["prepush-hook", "run-cargo-test", "run-cargo-clippy", "run-for-all", "run-cargo-fmt"] 
+version = "1"
