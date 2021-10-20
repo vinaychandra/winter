@@ -2,6 +2,7 @@
 edition = "2021"
 name = "winter_core"
 version = "0.1.0"
+repository = "https://github.com/vinaychandra/winter"
 
 [dependencies]
 no-std-compat = {version = "0.4.1", features = ["alloc"]}

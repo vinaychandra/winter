@@ -1,3 +1,5 @@
+//! https://github.com/milkey-mouse/nom-leb128
+
 use nom::{
     error::{make_error, ContextError, ErrorKind, ParseError},
     IResult, InputIter, InputLength, Needed, Slice,
