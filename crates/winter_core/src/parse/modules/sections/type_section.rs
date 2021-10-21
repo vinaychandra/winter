@@ -6,13 +6,12 @@ use nom::{
     multi::{length_count, length_value},
 };
 
+use super::section_length_parser;
 use crate::parse::{
     types::{functype_parser, FuncType},
     values::vector_count_parser,
     Res,
 };
-
-use super::section_length_parser;
 
 pub struct TypeSection {
     pub function_types: Vec<FuncType>,

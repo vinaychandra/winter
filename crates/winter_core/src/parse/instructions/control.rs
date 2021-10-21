@@ -1,3 +1,5 @@
+use std::vec::Vec;
+
 use nom::{
     branch::alt,
     bytes::complete::tag,
@@ -7,6 +9,7 @@ use nom::{
     sequence::{delimited, preceded, tuple},
 };
 
+use super::{instr_parser, Instr};
 use crate::parse::{
     modules::{
         funcidx_parser, labelidx_parser, tableidx_parser, typeidx_parser, FuncIdx, LabelIdx,
@@ -16,10 +19,6 @@ use crate::parse::{
     values::{leb128_i33, vector_count_parser},
     Res,
 };
-
-use std::vec::Vec;
-
-use super::{instr_parser, Instr};
 
 pub enum BlockType {
     Empty,
@@ -33,7 +32,8 @@ pub fn blocktype_parser(input: &[u8]) -> Res<&[u8], BlockType> {
         alt((
             map(tag([0x40]), |_| BlockType::Empty),
             map(valtype_parser, BlockType::ValType),
-            map(leb128_i33, |t| BlockType::TypeIndex((t as u32).into())), // TODO: check if this is correct
+            map(leb128_i33, |t| BlockType::TypeIndex((t as u32).into())), /* TODO: check if this
+                                                                           * is correct */
         )),
     )(input)
 }

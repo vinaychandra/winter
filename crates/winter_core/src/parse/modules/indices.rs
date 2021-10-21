@@ -1,8 +1,11 @@
 //! [Reference](https://webassembly.github.io/spec/core/binary/modules.html#indices)
-//! Definitions are referenced with zero-based indices. Each class of definition has its own index space.
+//!
+//! Definitions are referenced with zero-based indices. Each class of definition
+//! has its own index space.
+
+use nom::combinator::map;
 
 use crate::parse::{values::leb128_u32, Res};
-use nom::combinator::map;
 
 macro_rules! impl_idx {
     ($typename: ident, $parse_fn: ident) => {

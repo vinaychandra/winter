@@ -5,7 +5,9 @@ use nom::{bytes::complete::take, InputIter, InputLength, InputTake, Slice};
 use super::leb128_u32;
 use crate::parse::Res;
 
-/// Vectors are encoded with their `u32` length followed by the encoding of their element sequence.
+/// Vectors are encoded with their `u32` length followed by the encoding of
+/// their element sequence.
+///
 /// [Reference](https://webassembly.github.io/spec/core/binary/conventions.html#vectors).
 /// `u32` is decoded by [`leb128_u32`].
 pub fn vector_parser<I>(input: I) -> Res<I, I>
@@ -15,8 +17,11 @@ where
     leb128_u32(input).and_then(|(remaining, length)| take(length)(remaining))
 }
 
-/// Vectors are encoded with their `u32` length followed by the encoding of their element sequence.
+/// Vectors are encoded with their `u32` length followed by the encoding of
+/// their element sequence.
+///
 /// [Reference](https://webassembly.github.io/spec/core/binary/conventions.html#vectors).
+///
 /// `u32` is decoded by [`leb128_u32`].
 /// This method returns the length of the vector.
 pub fn vector_count_parser<I>(input: I) -> Res<I, u32>
@@ -28,9 +33,8 @@ where
 
 #[cfg(test)]
 mod tests {
-    use crate::parse::Res;
-
     use super::*;
+    use crate::parse::Res;
 
     #[test]
     fn test_vector_data() {

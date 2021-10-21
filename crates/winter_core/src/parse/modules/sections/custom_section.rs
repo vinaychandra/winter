@@ -3,9 +3,8 @@ use nom::{
     sequence::tuple,
 };
 
-use crate::parse::{values::name_parser, Res};
-
 use super::section_length_parser;
+use crate::parse::{values::name_parser, Res};
 
 pub struct CustomSection<'a> {
     pub name: &'a str,

@@ -1,9 +1,9 @@
 mod control;
 
+use std::boxed::Box;
+
 pub use control::*;
 use nom::{branch::alt, combinator::map, error::context};
-
-use std::boxed::Box;
 
 use super::Res;
 

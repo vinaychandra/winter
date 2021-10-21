@@ -1,15 +1,16 @@
 //! https://github.com/milkey-mouse/nom-leb128
 
-use nom::{
-    error::{make_error, ContextError, ErrorKind, ParseError},
-    IResult, InputIter, InputLength, Needed, Slice,
-};
-use num_traits::{PrimInt, Signed, WrappingNeg};
 use std::{
     mem::size_of,
     num::NonZeroUsize,
     ops::{BitOrAssign, RangeFrom},
 };
+
+use nom::{
+    error::{make_error, ContextError, ErrorKind, ParseError},
+    IResult, InputIter, InputLength, Needed, Slice,
+};
+use num_traits::{PrimInt, Signed, WrappingNeg};
 
 const NEED_ONE: Needed = Needed::Size(NonZeroUsize::new(1).unwrap());
 

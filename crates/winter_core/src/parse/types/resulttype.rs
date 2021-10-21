@@ -1,9 +1,9 @@
-use nom::{error::context, multi::length_count};
-
-use crate::parse::{values::vector_count_parser, Res};
 use std::vec::Vec;
 
+use nom::{error::context, multi::length_count};
+
 use super::{valtype_parser, ValType};
+use crate::parse::{values::vector_count_parser, Res};
 
 pub type ResultType = Vec<ValType>;
 

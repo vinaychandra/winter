@@ -1,3 +1,5 @@
+use std::vec::Vec;
+
 use nom::{
     branch::alt,
     bytes::complete::tag,
@@ -7,16 +9,13 @@ use nom::{
     sequence::{preceded, tuple},
 };
 
-use std::vec::Vec;
-
+use super::section_length_parser;
 use crate::parse::{
     modules::{typeidx_parser, TypeIdx},
     types::{globaltype_parser, memtype_parser, tabletype_parser, GlobalType, MemType, TableType},
     values::{name_parser, vector_count_parser},
     Res,
 };
-
-use super::section_length_parser;
 
 pub enum ImportDesc {
     Func(TypeIdx),

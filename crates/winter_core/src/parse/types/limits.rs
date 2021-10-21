@@ -9,7 +9,9 @@ pub struct Limits {
     pub max: Option<u32>,
 }
 
-/// Limits are encoded with a preceding flag indicating whether a maximum is present.
+/// Limits are encoded with a preceding flag indicating whether a maximum is
+/// present.
+///
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#limits)
 pub fn limits_parser(input: &[u8]) -> Res<&[u8], Limits> {
     context(

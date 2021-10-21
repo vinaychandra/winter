@@ -1,8 +1,7 @@
 use nom::{branch::alt, combinator::map, error::context};
 
-use crate::parse::Res;
-
 use super::{numtype_parser, reftype_parser, NumType, RefType};
+use crate::parse::Res;
 
 /// Value types are either a [`NumType`] or [`RefType`].
 /// See [`valtype`] for more information.
@@ -24,7 +23,9 @@ impl From<RefType> for ValType {
     }
 }
 
-/// Value types are encoded with their respective encoding as a [`NumType`] or [`RefType`].
+/// Value types are encoded with their respective encoding as a [`NumType`] or
+/// [`RefType`].
+///
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#value-types)
 pub fn valtype_parser(input: &[u8]) -> Res<&[u8], ValType> {
     context(

@@ -1,8 +1,7 @@
 use nom::{bytes::complete::take, combinator::map, error::context, sequence::pair};
 
-use crate::parse::Res;
-
 use super::{valtype_parser, ValType};
+use crate::parse::Res;
 
 /// GlobalType.
 pub struct GlobalType {
@@ -12,7 +11,9 @@ pub struct GlobalType {
     pub mutable: bool,
 }
 
-/// Global types are encoded by their value type and a flag for their mutability.
+/// Global types are encoded by their value type and a flag for their
+/// mutability.
+///
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#global-types)
 pub fn globaltype_parser(input: &[u8]) -> Res<&[u8], GlobalType> {
     context(

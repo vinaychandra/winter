@@ -1,8 +1,7 @@
 use nom::{combinator::map, error::context, sequence::pair};
 
-use crate::parse::Res;
-
 use super::{limits_parser, reftype_parser, Limits, RefType};
+use crate::parse::Res;
 
 /// Table type info.
 pub struct TableType {
@@ -10,7 +9,9 @@ pub struct TableType {
     pub limits: Limits,
 }
 
-/// Table types are encoded with their limits and the encoding of their element reference type.
+/// Table types are encoded with their limits and the encoding of their element
+/// reference type.
+///
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#table-types)
 pub fn tabletype_parser(input: &[u8]) -> Res<&[u8], TableType> {
     map(
