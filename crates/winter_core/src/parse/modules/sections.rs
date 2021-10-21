@@ -3,6 +3,7 @@ use nom::{bytes::complete::tag, sequence::preceded};
 use crate::parse::{values::vector_count_parser, Res};
 
 pub mod custom_section;
+pub mod import_section;
 pub mod type_section;
 
 pub enum SectionType {
