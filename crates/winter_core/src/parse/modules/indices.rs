@@ -13,12 +13,12 @@ macro_rules! impl_idx {
     };
 }
 
-impl_idx!(TypeIdx, typeidx_parse);
-impl_idx!(FuncIdx, funcidx_parse);
-impl_idx!(TableIdx, tableidx_parse);
-impl_idx!(MemIdx, memidx_parse);
-impl_idx!(GlobalIdx, globalidx_parse);
-impl_idx!(ElemIdx, elemidx_parse);
-impl_idx!(DataIdx, dataidx_parse);
-impl_idx!(LocalIdx, localidx_parse);
-impl_idx!(LabelIdx, labelidx_parse);
+impl_idx!(TypeIdx, typeidx_parser);
+impl_idx!(FuncIdx, funcidx_parser);
+impl_idx!(TableIdx, tableidx_parser);
+impl_idx!(MemIdx, memidx_parser);
+impl_idx!(GlobalIdx, globalidx_parser);
+impl_idx!(ElemIdx, elemidx_parser);
+impl_idx!(DataIdx, dataidx_parser);
+impl_idx!(LocalIdx, localidx_parser);
+impl_idx!(LabelIdx, labelidx_parser);
