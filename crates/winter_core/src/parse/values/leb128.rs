@@ -14,13 +14,13 @@ use std::{
 const NEED_ONE: Needed = Needed::Size(NonZeroUsize::new(1).unwrap());
 
 /// Maximum LEB128-encoded size of an integer type
-const fn leb128_size<T>() -> usize {
-    let bits = size_of::<T>() * 8;
-    (bits + 6) / 7 // equivalent to ceil(bits/7) w/o floats
+/// T is bit count.
+const fn leb128_size<const T: usize>() -> usize {
+    (T + 6) / 7 // equivalent to ceil(bits/7) w/o floats
 }
 
 macro_rules! impl_generic_leb128 {
-    ($fn_name:ident, $int_ty:ident, $post:tt, $int_name:expr) => {
+    ($fn_name:ident, $int_ty:ident, $post:tt, $int_name:expr, $leb_size:expr) => {
         #[doc = "Recognizes an LEB128-encoded number that fits in a `"]
         #[doc=$int_name]
         #[doc = "`."]
@@ -38,7 +38,7 @@ macro_rules! impl_generic_leb128 {
                     res |= (byte as $int_ty) << shift;
                     $post(&mut res, shift, byte);
                     return Ok((input.slice(pos + 1..), res));
-                } else if pos == leb128_size::<$int_ty>() - 1 {
+                } else if pos == leb128_size::<$leb_size>() - 1 {
                     return Err(nom::Err::Error(E::add_context(
                         input.clone(),
                         concat!("LEB128 integer is too big to fit in ", $int_name),
@@ -53,8 +53,8 @@ macro_rules! impl_generic_leb128 {
             Err(nom::Err::Incomplete(NEED_ONE))
         }
     };
-    ($fn_name:ident, $int_ty:ident, $post:tt) => {
-        impl_generic_leb128!($fn_name, $int_ty, $post, stringify!($int_ty));
+    ($fn_name:ident, $int_ty:ident, $post:tt, $leb_size:tt) => {
+        impl_generic_leb128!($fn_name, $int_ty, $post, stringify!($int_ty), $leb_size);
     };
 }
 
@@ -62,17 +62,16 @@ macro_rules! impl_generic_leb128 {
 fn ignore<T: BitOrAssign + PrimInt + WrappingNeg>(_res: &mut T, _shift: usize, _byte: u8) {}
 
 macro_rules! impl_unsigned_leb128 {
-    ($fn_name:ident, $int_ty:ident) => {
-        impl_generic_leb128!($fn_name, $int_ty, ignore);
+    ($fn_name:ident, $int_ty:ident, $leb_size:expr) => {
+        impl_generic_leb128!($fn_name, $int_ty, ignore, $leb_size);
     };
 }
 
-impl_unsigned_leb128!(leb128_u8, u8);
-impl_unsigned_leb128!(leb128_u16, u16);
-impl_unsigned_leb128!(leb128_u32, u32);
-impl_unsigned_leb128!(leb128_u64, u64);
-impl_unsigned_leb128!(leb128_u128, u128);
-impl_unsigned_leb128!(leb128_usize, usize);
+impl_unsigned_leb128!(leb128_u8, u8, 8);
+impl_unsigned_leb128!(leb128_u16, u16, 16);
+impl_unsigned_leb128!(leb128_u32, u32, 32);
+impl_unsigned_leb128!(leb128_u64, u64, 64);
+impl_unsigned_leb128!(leb128_u128, u128, 128);
 
 #[inline]
 fn sign_extend<T: BitOrAssign + PrimInt + Signed + WrappingNeg>(
@@ -89,18 +88,17 @@ fn sign_extend<T: BitOrAssign + PrimInt + Signed + WrappingNeg>(
 }
 
 macro_rules! impl_signed_leb128 {
-    ($fn_name:ident, $int_ty:ident) => {
-        impl_generic_leb128!($fn_name, $int_ty, sign_extend);
+    ($fn_name:ident, $int_ty:ident, $leb_size:expr) => {
+        impl_generic_leb128!($fn_name, $int_ty, sign_extend, $leb_size);
     };
 }
 
-impl_signed_leb128!(leb128_i8, i8);
-impl_signed_leb128!(leb128_i16, i16);
-impl_signed_leb128!(leb128_i32, i32);
-impl_signed_leb128!(leb128_i33, i64);
-impl_signed_leb128!(leb128_i64, i64);
-impl_signed_leb128!(leb128_i128, i128);
-impl_signed_leb128!(leb128_isize, isize);
+impl_signed_leb128!(leb128_i8, i8, 8);
+impl_signed_leb128!(leb128_i16, i16, 16);
+impl_signed_leb128!(leb128_i32, i32, 32);
+impl_signed_leb128!(leb128_i33, i64, 33);
+impl_signed_leb128!(leb128_i64, i64, 64);
+impl_signed_leb128!(leb128_i128, i128, 128);
 
 #[cfg(test)]
 mod tests {
@@ -110,7 +108,7 @@ mod tests {
 
     #[test]
     fn test_leb128() {
-        assert_eq!(leb128_size::<u8>(), 2);
+        assert_eq!(leb128_size::<8>(), 2);
         type ResType<'a> = Result<(&'a [u8], u8), nom::Err<VerboseError<&'a [u8]>>>;
 
         let value: ResType = leb128_u8(&[0x03]);
@@ -122,7 +120,7 @@ mod tests {
         let value: ResType = leb128_u8(&[0x83, 0x80, 0x00]);
         assert!(value.is_err(), "Should fail on too large input");
 
-        assert_eq!(leb128_size::<u16>(), 3);
+        assert_eq!(leb128_size::<16>(), 3);
         type ResType2<'a> = Result<(&'a [u8], u16), nom::Err<VerboseError<&'a [u8]>>>;
 
         let value: ResType2 = leb128_u16(&[0x03]);
@@ -136,7 +134,7 @@ mod tests {
         let value: ResType2 = leb128_u16(&[0x83, 0x80, 0x80, 0x00, 0x00]);
         assert!(value.is_err(), "Should fail on too large input");
 
-        assert_eq!(leb128_size::<i16>(), 3);
+        assert_eq!(leb128_size::<16>(), 3);
         type ResType3<'a> = Result<(&'a [u8], i16), nom::Err<VerboseError<&'a [u8]>>>;
 
         let value: ResType3 = leb128_i16(&[0x03]);
