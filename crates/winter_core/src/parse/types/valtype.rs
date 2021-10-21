@@ -1,4 +1,4 @@
-use nom::{branch::alt, combinator::map};
+use nom::{branch::alt, combinator::map, error::context};
 
 use crate::parse::Res;
 
@@ -27,10 +27,13 @@ impl From<RefType> for ValType {
 /// Value types are encoded with their respective encoding as a [`NumType`] or [`RefType`].
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#value-types)
 pub fn valtype_parser(input: &[u8]) -> Res<&[u8], ValType> {
-    alt((
-        map(numtype_parser, ValType::from),
-        map(reftype_parser, ValType::from),
-    ))(input)
+    context(
+        "valtype",
+        alt((
+            map(numtype_parser, ValType::from),
+            map(reftype_parser, ValType::from),
+        )),
+    )(input)
 }
 
 #[cfg(test)]
