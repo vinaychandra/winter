@@ -97,6 +97,7 @@ macro_rules! impl_signed_leb128 {
 impl_signed_leb128!(leb128_i8, i8);
 impl_signed_leb128!(leb128_i16, i16);
 impl_signed_leb128!(leb128_i32, i32);
+impl_signed_leb128!(leb128_i33, i64);
 impl_signed_leb128!(leb128_i64, i64);
 impl_signed_leb128!(leb128_i128, i128);
 impl_signed_leb128!(leb128_isize, isize);
