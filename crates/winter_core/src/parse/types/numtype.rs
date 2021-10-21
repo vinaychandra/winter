@@ -7,6 +7,7 @@ use crate::parse::Res;
 
 /// Number types are encoded by a single byte.
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#number-types)
+#[derive(Eq, PartialEq, Debug, Clone)]
 pub enum NumType {
     I32,
     I64,
@@ -43,5 +44,5 @@ pub fn numtype(input: &[u8]) -> Res<&[u8], NumType> {
                 make_error(input, ErrorKind::Char),
             ))
         })
-        .map(|v| (input, v))
+        .map(|v| (&input[1..], v))
 }

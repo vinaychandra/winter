@@ -7,6 +7,7 @@ use crate::parse::Res;
 
 /// Reference types are encoded by a single byte.
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#reference-types)
+#[derive(Eq, PartialEq, Debug, Clone)]
 pub enum RefType {
     FuncRef,
     ExternRef,
@@ -39,5 +40,5 @@ pub fn reftype(input: &[u8]) -> Res<&[u8], RefType> {
                 make_error(input, ErrorKind::Char),
             ))
         })
-        .map(|v| (input, v))
+        .map(|v| (&input[1..], v))
 }

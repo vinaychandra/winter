@@ -1,0 +1,44 @@
+use nom::{branch::alt, combinator::map};
+
+use crate::parse::Res;
+
+use super::{numtype, reftype, NumType, RefType};
+
+/// Value types are either a [`NumType`] or [`RefType`].
+/// See [`valtype`] for more information.
+#[derive(Eq, PartialEq, Debug, Clone)]
+pub enum ValType {
+    NumType(NumType),
+    RefType(RefType),
+}
+
+impl From<NumType> for ValType {
+    fn from(num_type: NumType) -> Self {
+        ValType::NumType(num_type)
+    }
+}
+
+impl From<RefType> for ValType {
+    fn from(ref_type: RefType) -> Self {
+        ValType::RefType(ref_type)
+    }
+}
+
+/// Value types are encoded with their respective encoding as a [`NumType`] or [`RefType`].
+/// [Reference](https://webassembly.github.io/spec/core/binary/types.html#value-types)
+pub fn valtype(input: &[u8]) -> Res<&[u8], ValType> {
+    alt((map(numtype, ValType::from), map(reftype, ValType::from)))(input)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_valtype() {
+        type ResType<'a> = Res<&'a [u8], ValType>;
+
+        let value: ResType = valtype(&[0x7C]);
+        assert_eq!(value, Ok((&[][..], ValType::NumType(NumType::F64))));
+    }
+}
