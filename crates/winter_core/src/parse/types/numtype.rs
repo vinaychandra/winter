@@ -1,7 +1,4 @@
-use nom::{
-    error::{make_error, ContextError, ErrorKind, VerboseError},
-    InputTake,
-};
+use nom::{bytes::complete::take, combinator::map_res, error::context};
 
 use crate::parse::Res;
 
@@ -33,16 +30,8 @@ impl TryFrom<u8> for NumType {
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#number-types)
 /// Returns a struct `NumType` which contains the type of the number.
 pub fn numtype_parser(input: &[u8]) -> Res<&[u8], NumType> {
-    let value = input.take(1);
-    let result: Result<NumType, &'static str> = value[0].try_into();
-
-    result
-        .map_err(|e| {
-            nom::Err::Error(VerboseError::add_context(
-                input,
-                e,
-                make_error(input, ErrorKind::Char),
-            ))
-        })
-        .map(|v| (&input[1..], v))
+    context(
+        "numtype",
+        map_res(take(1usize), |f: &[u8]| (f[0]).try_into()),
+    )(input)
 }

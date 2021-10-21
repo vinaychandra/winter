@@ -1,22 +1,12 @@
-use super::vector;
+use super::vector_parser;
 use crate::parse::Res;
-use nom::error::{make_error, ContextError, ErrorKind, VerboseError};
+use nom::{combinator::map_res, error::context};
 
 /// Names are encoded as a vector of bytes containing the Unicode
 /// UTF-8 encoding of the name’s character sequence.
 /// [Reference](https://webassembly.github.io/spec/core/binary/values.html#names)
 pub fn name_parser(input: &[u8]) -> Res<&[u8], &str> {
-    vector(input).and_then(|(remaining, data)| {
-        core::str::from_utf8(data)
-            .map_err(|_| {
-                nom::Err::Error(VerboseError::add_context(
-                    input,
-                    "Unicode decoding failed",
-                    make_error(input, ErrorKind::Verify),
-                ))
-            })
-            .map(|inp| (remaining, inp))
-    })
+    context("name", map_res(vector_parser, core::str::from_utf8))(input)
 }
 
 #[cfg(test)]
