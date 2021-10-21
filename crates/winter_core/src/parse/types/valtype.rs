@@ -2,7 +2,7 @@ use nom::{branch::alt, combinator::map};
 
 use crate::parse::Res;
 
-use super::{numtype, reftype, NumType, RefType};
+use super::{numtype_parser, reftype_parser, NumType, RefType};
 
 /// Value types are either a [`NumType`] or [`RefType`].
 /// See [`valtype`] for more information.
@@ -26,8 +26,11 @@ impl From<RefType> for ValType {
 
 /// Value types are encoded with their respective encoding as a [`NumType`] or [`RefType`].
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#value-types)
-pub fn valtype(input: &[u8]) -> Res<&[u8], ValType> {
-    alt((map(numtype, ValType::from), map(reftype, ValType::from)))(input)
+pub fn valtype_parser(input: &[u8]) -> Res<&[u8], ValType> {
+    alt((
+        map(numtype_parser, ValType::from),
+        map(reftype_parser, ValType::from),
+    ))(input)
 }
 
 #[cfg(test)]
@@ -38,7 +41,7 @@ mod tests {
     fn test_valtype() {
         type ResType<'a> = Res<&'a [u8], ValType>;
 
-        let value: ResType = valtype(&[0x7C]);
+        let value: ResType = valtype_parser(&[0x7C]);
         assert_eq!(value, Ok((&[][..], ValType::NumType(NumType::F64))));
     }
 }

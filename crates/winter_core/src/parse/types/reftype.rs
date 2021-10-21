@@ -28,7 +28,7 @@ impl TryFrom<u8> for RefType {
 /// Reference types are encoded by a single byte.
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#reference-types)
 /// Returns a struct `RefType` which contains the type of the reference.
-pub fn reftype(input: &[u8]) -> Res<&[u8], RefType> {
+pub fn reftype_parser(input: &[u8]) -> Res<&[u8], RefType> {
     let value = input.take(1);
     let result: Result<RefType, &'static str> = value[0].try_into();
 

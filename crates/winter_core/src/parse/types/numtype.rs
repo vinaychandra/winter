@@ -32,7 +32,7 @@ impl TryFrom<u8> for NumType {
 /// Number types are encoded by a single byte.
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#number-types)
 /// Returns a struct `NumType` which contains the type of the number.
-pub fn numtype(input: &[u8]) -> Res<&[u8], NumType> {
+pub fn numtype_parser(input: &[u8]) -> Res<&[u8], NumType> {
     let value = input.take(1);
     let result: Result<NumType, &'static str> = value[0].try_into();
 
