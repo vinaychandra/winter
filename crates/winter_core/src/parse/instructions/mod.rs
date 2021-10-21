@@ -1,8 +1,10 @@
 mod control;
+mod expr;
 
 use std::boxed::Box;
 
 pub use control::*;
+pub use expr::*;
 use nom::{branch::alt, combinator::map, error::context};
 
 use super::Res;
