@@ -15,21 +15,25 @@ use crate::parse::{
     Res,
 };
 
+#[derive(Debug)]
 pub struct Locals {
     pub count: u32,
     pub val_type: ValType,
 }
 
+#[derive(Debug)]
 pub struct Func {
     pub locals: Vec<Locals>,
     pub expr: Expr,
 }
 
+#[derive(Debug)]
 pub struct Code {
     pub size: u32,
     pub code: Func,
 }
 
+#[derive(Debug)]
 pub struct CodeSection {
     pub code: Vec<Code>,
 }

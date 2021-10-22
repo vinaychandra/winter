@@ -3,6 +3,7 @@ use nom::{combinator::map, error::context, multi::length_value};
 use super::section_length_parser;
 use crate::parse::{values::leb128_u32, Res};
 
+#[derive(Debug)]
 pub struct DataCountSection {
     pub count: u32,
 }

@@ -20,6 +20,7 @@ use crate::parse::{
     Res,
 };
 
+#[derive(Debug)]
 pub enum BlockType {
     Empty,
     ValType(ValType),
@@ -39,6 +40,7 @@ pub fn blocktype_parser(input: &[u8]) -> Res<&[u8], BlockType> {
 }
 
 /// Instructions in this group affect the flow of control.
+#[derive(Debug)]
 pub enum ControlInstruction {
     /// The unreachable instruction causes an unconditional trap.
     Unreachable,

@@ -13,10 +13,12 @@ use crate::parse::{
     Res,
 };
 
+#[derive(Debug)]
 pub struct Mem {
     pub mem_type: MemType,
 }
 
+#[derive(Debug)]
 pub struct MemSection {
     pub tables: Vec<Mem>,
 }

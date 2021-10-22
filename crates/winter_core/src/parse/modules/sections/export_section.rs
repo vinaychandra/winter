@@ -19,6 +19,7 @@ use crate::parse::{
     Res,
 };
 
+#[derive(Debug)]
 pub enum ExportDesc {
     Func(FuncIdx),
     Table(TableIdx),
@@ -26,11 +27,13 @@ pub enum ExportDesc {
     Global(GlobalIdx),
 }
 
+#[derive(Debug)]
 pub struct Export<'a> {
     pub name: &'a str,
     pub desc: ExportDesc,
 }
 
+#[derive(Debug)]
 pub struct ExportSection<'a> {
     pub exports: Vec<Export<'a>>,
 }

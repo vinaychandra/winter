@@ -9,6 +9,7 @@ use nom::{branch::alt, combinator::map, error::context};
 
 use super::Res;
 
+#[derive(Debug)]
 pub enum Instr {
     Control(Box<ControlInstruction>),
 }

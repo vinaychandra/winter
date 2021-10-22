@@ -15,11 +15,13 @@ use crate::parse::{
     Res,
 };
 
+#[derive(Debug)]
 pub struct Global {
     pub global_type: GlobalType,
     pub expr: Expr,
 }
 
+#[derive(Debug)]
 pub struct GlobalSection {
     pub globals: Vec<Global>,
 }

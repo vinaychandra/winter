@@ -6,6 +6,7 @@ use crate::parse::{
     Res,
 };
 
+#[derive(Debug)]
 pub struct StartSection {
     pub start: FuncIdx,
 }

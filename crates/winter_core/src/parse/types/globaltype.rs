@@ -4,6 +4,7 @@ use super::{valtype_parser, ValType};
 use crate::parse::Res;
 
 /// GlobalType.
+#[derive(Debug)]
 pub struct GlobalType {
     pub value_type: ValType,
 

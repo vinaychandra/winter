@@ -4,6 +4,7 @@ use super::super::values::leb128_u32;
 use crate::parse::Res;
 
 /// Limits with a required min value and an optional max value.
+#[derive(Debug)]
 pub struct Limits {
     pub min: u32,
     pub max: Option<u32>,

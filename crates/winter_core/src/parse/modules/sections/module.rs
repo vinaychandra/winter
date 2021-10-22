@@ -24,7 +24,7 @@ use super::{
     type_section::{type_section_parser, TypeSection},
 };
 
-#[derive(Default)]
+#[derive(Default, Debug)]
 pub struct Module<'a> {
     pub custom_sections: Vec<CustomSection<'a>>,
     pub func_type: Option<TypeSection>,

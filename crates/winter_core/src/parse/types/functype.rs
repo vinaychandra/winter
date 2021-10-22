@@ -4,6 +4,7 @@ use super::{resulttype_parser, ResultType};
 use crate::parse::Res;
 
 /// Function type info.
+#[derive(Debug)]
 pub struct FuncType {
     pub params: ResultType,
     pub ret: ResultType,

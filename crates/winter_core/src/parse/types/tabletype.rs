@@ -4,6 +4,7 @@ use super::{limits_parser, reftype_parser, Limits, RefType};
 use crate::parse::Res;
 
 /// Table type info.
+#[derive(Debug)]
 pub struct TableType {
     pub ref_type: RefType,
     pub limits: Limits,

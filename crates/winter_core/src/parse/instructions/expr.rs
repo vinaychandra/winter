@@ -7,6 +7,7 @@ use nom::{
 use super::{instr_parser, Instr};
 use crate::parse::Res;
 
+#[derive(Debug)]
 pub struct Expr {
     pub instr: Vec<Instr>,
 }

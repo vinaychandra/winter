@@ -9,6 +9,7 @@ use crate::parse::{values::leb128_u32, Res};
 
 macro_rules! impl_idx {
     ($typename: ident, $parse_fn: ident) => {
+        #[derive(Debug)]
         pub struct $typename(pub u32);
 
         pub fn $parse_fn(input: &[u8]) -> Res<&[u8], $typename> {

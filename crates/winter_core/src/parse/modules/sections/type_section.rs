@@ -13,6 +13,7 @@ use crate::parse::{
     Res,
 };
 
+#[derive(Debug)]
 pub struct TypeSection {
     pub function_types: Vec<FuncType>,
 }

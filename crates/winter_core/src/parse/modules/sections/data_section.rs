@@ -17,16 +17,19 @@ use crate::parse::{
     Res,
 };
 
+#[derive(Debug)]
 pub enum DataMode {
     Passive,
     Active { memory: MemIdx, offset: Expr },
 }
 
+#[derive(Debug)]
 pub struct Data<'a> {
     pub init: &'a [u8],
     pub mode: DataMode,
 }
 
+#[derive(Debug)]
 pub struct DataSection<'a> {
     pub data: Vec<Data<'a>>,
 }

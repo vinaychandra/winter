@@ -18,28 +18,33 @@ use crate::parse::{
     Res,
 };
 
+#[derive(Debug)]
 pub enum ElemKind {
     FuncRef,
     RefType(RefType),
 }
 
+#[derive(Debug)]
 pub enum ElemInit {
     Expr(Vec<Expr>),
     FuncIdx(Vec<FuncIdx>),
 }
 
+#[derive(Debug)]
 pub enum ElemMode {
     Declarative,
     Passive,
     Active { table: TableIdx, offset: Expr },
 }
 
+#[derive(Debug)]
 pub struct Elem {
     pub elem_type: ElemKind,
     pub init: ElemInit,
     pub mode: ElemMode,
 }
 
+#[derive(Debug)]
 pub struct ElementSection {
     pub elems: Vec<Elem>,
 }

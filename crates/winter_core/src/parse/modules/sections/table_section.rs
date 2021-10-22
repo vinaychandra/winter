@@ -13,10 +13,12 @@ use crate::parse::{
     Res,
 };
 
+#[derive(Debug)]
 pub struct Table {
     pub table_type: TableType,
 }
 
+#[derive(Debug)]
 pub struct TableSection {
     pub tables: Vec<Table>,
 }

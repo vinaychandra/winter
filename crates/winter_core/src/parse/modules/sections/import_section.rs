@@ -17,6 +17,7 @@ use crate::parse::{
     Res,
 };
 
+#[derive(Debug)]
 pub enum ImportDesc {
     Func(TypeIdx),
     Table(TableType),
@@ -24,12 +25,14 @@ pub enum ImportDesc {
     Global(GlobalType),
 }
 
+#[derive(Debug)]
 pub struct Import<'a> {
     pub mod_name: &'a str,
     pub name: &'a str,
     pub desc: ImportDesc,
 }
 
+#[derive(Debug)]
 pub struct ImportSection<'a> {
     pub imports: Vec<Import<'a>>,
 }
