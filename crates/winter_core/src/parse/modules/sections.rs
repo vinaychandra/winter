@@ -6,6 +6,7 @@ pub mod code_section;
 pub mod custom_section;
 pub mod data_count_section;
 pub mod data_section;
+pub mod element_section;
 pub mod export_section;
 pub mod function_section;
 pub mod global_section;
