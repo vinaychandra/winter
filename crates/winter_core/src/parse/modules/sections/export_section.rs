@@ -31,7 +31,7 @@ pub struct Export<'a> {
     pub desc: ExportDesc,
 }
 
-pub struct ExportSec<'a> {
+pub struct ExportSection<'a> {
     pub exports: Vec<Export<'a>>,
 }
 
@@ -56,7 +56,7 @@ fn export_parser(input: &[u8]) -> Res<&[u8], Export> {
     )(input)
 }
 
-pub fn export_section_parser(input: &[u8]) -> Res<&[u8], ExportSec> {
+pub fn export_section_parser(input: &[u8]) -> Res<&[u8], ExportSection> {
     context(
         "export_section",
         map(
@@ -64,7 +64,7 @@ pub fn export_section_parser(input: &[u8]) -> Res<&[u8], ExportSec> {
                 section_length_parser(7),
                 length_count(vector_count_parser, export_parser),
             ),
-            |exports| ExportSec { exports },
+            |exports| ExportSection { exports },
         ),
     )(input)
 }
