@@ -5,4 +5,4 @@ pub mod modules;
 pub mod types;
 pub mod values;
 
-pub type Res<T, U> = IResult<T, U, VerboseError<T>>;
+pub type Res<'a, U> = IResult<&'a [u8], U, VerboseError<&'a [u8]>>;

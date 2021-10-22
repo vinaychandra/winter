@@ -14,7 +14,7 @@ pub enum Instr {
     Control(Box<ControlInstruction>),
 }
 
-pub fn instr_parser(input: &[u8]) -> Res<&[u8], Instr> {
+pub fn instr_parser(input: &[u8]) -> Res<Instr> {
     context(
         "instr",
         alt((

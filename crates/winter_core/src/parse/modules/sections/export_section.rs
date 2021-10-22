@@ -38,7 +38,7 @@ pub struct ExportSection<'a> {
     pub exports: Vec<Export<'a>>,
 }
 
-fn export_desc_parser(input: &[u8]) -> Res<&[u8], ExportDesc> {
+fn export_desc_parser(input: &[u8]) -> Res<ExportDesc> {
     context(
         "export_desc",
         alt((
@@ -50,7 +50,7 @@ fn export_desc_parser(input: &[u8]) -> Res<&[u8], ExportDesc> {
     )(input)
 }
 
-fn export_parser(input: &[u8]) -> Res<&[u8], Export> {
+fn export_parser(input: &[u8]) -> Res<Export> {
     context(
         "export",
         map(tuple((name_parser, export_desc_parser)), |(name, desc)| {
@@ -59,7 +59,7 @@ fn export_parser(input: &[u8]) -> Res<&[u8], Export> {
     )(input)
 }
 
-pub fn export_section_parser(input: &[u8]) -> Res<&[u8], ExportSection> {
+pub fn export_section_parser(input: &[u8]) -> Res<ExportSection> {
     context(
         "export_section",
         map(

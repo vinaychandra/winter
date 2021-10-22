@@ -18,7 +18,7 @@ pub struct FuncSection {
     pub functions: Vec<TypeIdx>,
 }
 
-pub fn func_section_parser(input: &[u8]) -> Res<&[u8], FuncSection> {
+pub fn func_section_parser(input: &[u8]) -> Res<FuncSection> {
     context(
         "func_section",
         map(

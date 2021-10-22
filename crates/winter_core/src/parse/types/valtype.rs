@@ -27,7 +27,7 @@ impl From<RefType> for ValType {
 /// [`RefType`].
 ///
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#value-types)
-pub fn valtype_parser(input: &[u8]) -> Res<&[u8], ValType> {
+pub fn valtype_parser(input: &[u8]) -> Res<ValType> {
     context(
         "valtype",
         alt((
@@ -43,9 +43,7 @@ mod tests {
 
     #[test]
     fn test_valtype() {
-        type ResType<'a> = Res<&'a [u8], ValType>;
-
-        let value: ResType = valtype_parser(&[0x7C]);
+        let value: Res<ValType> = valtype_parser(&[0x7C]);
         assert_eq!(value, Ok((&[][..], ValType::NumType(NumType::F64))));
     }
 }

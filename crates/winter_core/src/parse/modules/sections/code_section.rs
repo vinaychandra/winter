@@ -38,7 +38,7 @@ pub struct CodeSection {
     pub code: Vec<Code>,
 }
 
-fn locals_parser(input: &[u8]) -> Res<&[u8], Locals> {
+fn locals_parser(input: &[u8]) -> Res<Locals> {
     context(
         "locals",
         map(tuple((leb128_u32, valtype_parser)), |(count, val_type)| {
@@ -47,7 +47,7 @@ fn locals_parser(input: &[u8]) -> Res<&[u8], Locals> {
     )(input)
 }
 
-fn func_parser(input: &[u8]) -> Res<&[u8], Func> {
+fn func_parser(input: &[u8]) -> Res<Func> {
     context(
         "func",
         map(
@@ -60,7 +60,7 @@ fn func_parser(input: &[u8]) -> Res<&[u8], Func> {
     )(input)
 }
 
-fn code_parser(input: &[u8]) -> Res<&[u8], Code> {
+fn code_parser(input: &[u8]) -> Res<Code> {
     context(
         "code",
         map(tuple((leb128_u32, func_parser)), |(size, code)| Code {
@@ -70,7 +70,7 @@ fn code_parser(input: &[u8]) -> Res<&[u8], Code> {
     )(input)
 }
 
-pub fn code_section_parser(input: &[u8]) -> Res<&[u8], CodeSection> {
+pub fn code_section_parser(input: &[u8]) -> Res<CodeSection> {
     context(
         "code_section",
         map(

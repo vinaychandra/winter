@@ -14,7 +14,7 @@ pub struct FuncType {
 /// vectors of parameter and result types.
 ///
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#function-types)
-pub fn functype_parser(input: &[u8]) -> Res<&[u8], FuncType> {
+pub fn functype_parser(input: &[u8]) -> Res<FuncType> {
     let r = context(
         "functype",
         tuple((tag([0x60]), resulttype_parser, resulttype_parser)),

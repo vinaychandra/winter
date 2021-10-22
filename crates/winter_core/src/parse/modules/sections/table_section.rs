@@ -23,7 +23,7 @@ pub struct TableSection {
     pub tables: Vec<Table>,
 }
 
-pub fn table_section_parser(input: &[u8]) -> Res<&[u8], TableSection> {
+pub fn table_section_parser(input: &[u8]) -> Res<TableSection> {
     context(
         "table_section",
         map(

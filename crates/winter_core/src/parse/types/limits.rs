@@ -14,7 +14,7 @@ pub struct Limits {
 /// present.
 ///
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#limits)
-pub fn limits_parser(input: &[u8]) -> Res<&[u8], Limits> {
+pub fn limits_parser(input: &[u8]) -> Res<Limits> {
     context(
         "limits",
         alt((

@@ -34,7 +34,7 @@ pub struct DataSection<'a> {
     pub data: Vec<Data<'a>>,
 }
 
-fn data_parser(input: &[u8]) -> Res<&[u8], Data> {
+fn data_parser(input: &[u8]) -> Res<Data> {
     context(
         "data",
         alt((
@@ -66,7 +66,7 @@ fn data_parser(input: &[u8]) -> Res<&[u8], Data> {
     )(input)
 }
 
-pub fn data_section_parser(input: &[u8]) -> Res<&[u8], DataSection> {
+pub fn data_section_parser(input: &[u8]) -> Res<DataSection> {
     context(
         "data_section",
         map(

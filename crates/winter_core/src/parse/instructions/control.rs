@@ -27,7 +27,7 @@ pub enum BlockType {
     TypeIndex(TypeIdx),
 }
 
-pub fn blocktype_parser(input: &[u8]) -> Res<&[u8], BlockType> {
+pub fn blocktype_parser(input: &[u8]) -> Res<BlockType> {
     context(
         "blocktype",
         alt((
@@ -79,7 +79,7 @@ pub enum ControlInstruction {
     CallIndirect(TypeIdx, TableIdx),
 }
 
-pub fn control_instr_parser(input: &[u8]) -> Res<&[u8], ControlInstruction> {
+pub fn control_instr_parser(input: &[u8]) -> Res<ControlInstruction> {
     context(
         "conditional_instr",
         alt((

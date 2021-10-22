@@ -23,7 +23,7 @@ pub struct MemSection {
     pub tables: Vec<Mem>,
 }
 
-pub fn memory_section_parser(input: &[u8]) -> Res<&[u8], MemSection> {
+pub fn memory_section_parser(input: &[u8]) -> Res<MemSection> {
     context(
         "memory_section",
         map(

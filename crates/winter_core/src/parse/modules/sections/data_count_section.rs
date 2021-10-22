@@ -8,7 +8,7 @@ pub struct DataCountSection {
     pub count: u32,
 }
 
-pub fn data_count_section_parser(input: &[u8]) -> Res<&[u8], DataCountSection> {
+pub fn data_count_section_parser(input: &[u8]) -> Res<DataCountSection> {
     context(
         "data_count",
         map(

@@ -7,7 +7,7 @@ use crate::parse::{values::vector_count_parser, Res};
 
 pub type ResultType = Vec<ValType>;
 
-pub fn resulttype_parser(input: &[u8]) -> Res<&[u8], ResultType> {
+pub fn resulttype_parser(input: &[u8]) -> Res<ResultType> {
     context(
         "resulttype",
         length_count(vector_count_parser, valtype_parser),

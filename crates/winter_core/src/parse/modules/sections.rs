@@ -19,6 +19,6 @@ pub mod type_section;
 
 /// Parser a section. Validates the section number and returns
 /// the number of bytes for the section.
-fn section_length_parser(section_id: u8) -> impl FnMut(&[u8]) -> Res<&[u8], u32> {
+fn section_length_parser(section_id: u8) -> impl FnMut(&[u8]) -> Res<u32> {
     move |inp: &[u8]| preceded(tag([section_id]), vector_count_parser)(inp)
 }

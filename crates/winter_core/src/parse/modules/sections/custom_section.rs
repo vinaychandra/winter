@@ -12,7 +12,7 @@ pub struct CustomSection<'a> {
     pub data: &'a [u8],
 }
 
-pub fn custom_section_parser(input: &[u8]) -> Res<&[u8], CustomSection> {
+pub fn custom_section_parser(input: &[u8]) -> Res<CustomSection> {
     context(
         "custom_section",
         map(

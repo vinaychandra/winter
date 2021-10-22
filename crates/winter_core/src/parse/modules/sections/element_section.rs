@@ -49,7 +49,7 @@ pub struct ElementSection {
     pub elems: Vec<Elem>,
 }
 
-fn elemkind_parser(input: &[u8]) -> Res<&[u8], ElemKind> {
+fn elemkind_parser(input: &[u8]) -> Res<ElemKind> {
     context(
         "elemkind",
         alt((
@@ -59,7 +59,7 @@ fn elemkind_parser(input: &[u8]) -> Res<&[u8], ElemKind> {
     )(input)
 }
 
-fn elem_parser(input: &[u8]) -> Res<&[u8], Elem> {
+fn elem_parser(input: &[u8]) -> Res<Elem> {
     context(
         "elem",
         alt((
@@ -192,7 +192,7 @@ fn elem_parser(input: &[u8]) -> Res<&[u8], Elem> {
     )(input)
 }
 
-pub fn element_section_parser(input: &[u8]) -> Res<&[u8], ElementSection> {
+pub fn element_section_parser(input: &[u8]) -> Res<ElementSection> {
     context(
         "element_section",
         map(

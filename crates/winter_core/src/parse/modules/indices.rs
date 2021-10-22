@@ -12,7 +12,7 @@ macro_rules! impl_idx {
         #[derive(Debug)]
         pub struct $typename(pub u32);
 
-        pub fn $parse_fn(input: &[u8]) -> Res<&[u8], $typename> {
+        pub fn $parse_fn(input: &[u8]) -> Res<$typename> {
             map(leb128_u32, |f| $typename(f))(input)
         }
 

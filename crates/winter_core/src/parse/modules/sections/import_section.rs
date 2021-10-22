@@ -37,7 +37,7 @@ pub struct ImportSection<'a> {
     pub imports: Vec<Import<'a>>,
 }
 
-fn import_desc_parser(input: &[u8]) -> Res<&[u8], ImportDesc> {
+fn import_desc_parser(input: &[u8]) -> Res<ImportDesc> {
     context(
         "import_desc",
         alt((
@@ -49,7 +49,7 @@ fn import_desc_parser(input: &[u8]) -> Res<&[u8], ImportDesc> {
     )(input)
 }
 
-fn import_parser(input: &[u8]) -> Res<&[u8], Import> {
+fn import_parser(input: &[u8]) -> Res<Import> {
     context(
         "import",
         map(
@@ -63,7 +63,7 @@ fn import_parser(input: &[u8]) -> Res<&[u8], Import> {
     )(input)
 }
 
-pub fn import_section_parser(input: &[u8]) -> Res<&[u8], ImportSection> {
+pub fn import_section_parser(input: &[u8]) -> Res<ImportSection> {
     context(
         "import_section",
         map(

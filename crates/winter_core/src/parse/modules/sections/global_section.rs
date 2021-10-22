@@ -26,7 +26,7 @@ pub struct GlobalSection {
     pub globals: Vec<Global>,
 }
 
-fn global_parser(input: &[u8]) -> Res<&[u8], Global> {
+fn global_parser(input: &[u8]) -> Res<Global> {
     context(
         "global",
         map(
@@ -36,7 +36,7 @@ fn global_parser(input: &[u8]) -> Res<&[u8], Global> {
     )(input)
 }
 
-pub fn global_section_parser(input: &[u8]) -> Res<&[u8], GlobalSection> {
+pub fn global_section_parser(input: &[u8]) -> Res<GlobalSection> {
     context(
         "global_section",
         map(

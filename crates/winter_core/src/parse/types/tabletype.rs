@@ -14,7 +14,7 @@ pub struct TableType {
 /// reference type.
 ///
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#table-types)
-pub fn tabletype_parser(input: &[u8]) -> Res<&[u8], TableType> {
+pub fn tabletype_parser(input: &[u8]) -> Res<TableType> {
     map(
         context("tabletype", pair(reftype_parser, limits_parser)),
         |(reftype, limits)| TableType {

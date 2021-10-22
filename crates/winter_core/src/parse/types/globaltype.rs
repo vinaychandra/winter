@@ -16,7 +16,7 @@ pub struct GlobalType {
 /// mutability.
 ///
 /// [Reference](https://webassembly.github.io/spec/core/binary/types.html#global-types)
-pub fn globaltype_parser(input: &[u8]) -> Res<&[u8], GlobalType> {
+pub fn globaltype_parser(input: &[u8]) -> Res<GlobalType> {
     context(
         "globaltype",
         map(pair(valtype_parser, take(1usize)), |(value_type, b)| {

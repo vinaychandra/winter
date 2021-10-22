@@ -11,7 +11,7 @@ pub struct StartSection {
     pub start: FuncIdx,
 }
 
-pub fn start_section_parser(input: &[u8]) -> Res<&[u8], StartSection> {
+pub fn start_section_parser(input: &[u8]) -> Res<StartSection> {
     context(
         "start_section",
         map(
